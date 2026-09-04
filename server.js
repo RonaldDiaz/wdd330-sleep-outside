@@ -17,5 +17,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-  process.stdout.write('Servidor rodando na porta ' + port + '\n');
+  console.log(`Servidor rodando na porta ${port}`);
 });
