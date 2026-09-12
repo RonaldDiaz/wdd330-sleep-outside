@@ -1,14 +1,14 @@
 {
-    "mainAlerts": [
-        {
-            "message": "This is only a test",
-            "background": "darkblue",
-            "color": "white"
-        },
-        {
-            "message": "Be Alert! There are not enough lerts in the world.",
-            "background": "lightblue",
-            "color": "black"
-        }
-    ]
+  "mainAlerts": [
+    {
+      "message": "This is only a test",
+      "background": "darkblue",
+      "color": "white"
+    },
+    {
+      "message": "Be Alert! There are not enough lerts in the world.",
+      "background": "lightblue",
+      "color": "black"
+    }
+  ]
 }
