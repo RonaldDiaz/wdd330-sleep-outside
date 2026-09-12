@@ -31,11 +31,10 @@ export function getParam(key) {
 export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false) {
     const listElementArray = list.map(templateFn);
     if (clear) {
-        parentElement.innerHTML = listElementArray.join('');
+        parentElement.innerHTML = '';
     }
-    else {
-        parentElement.insertAdjacentHTML(position, listElementArray.join(''));
-    }
+    const htmlStrings = list.map(templateFn);
+    parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
 export function convertToJson(res) {
