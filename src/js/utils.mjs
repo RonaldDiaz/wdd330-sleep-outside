@@ -36,6 +36,14 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
+export function updateCartCount() {
+  const cartItems = getLocalStorage('so-cart') || [];
+  const countElement = document.getElementById('cart-count');
+  if (countElement) {
+    countElement.textContent = cartItems.length;
+  }
+}
+
 export function convertToJson(res) {
     if (res.ok) {
         return res.json();
