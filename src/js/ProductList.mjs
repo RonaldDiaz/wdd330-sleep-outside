@@ -10,6 +10,7 @@ function productCardTemplate(product) {
     </a>
   </li>`;
 }
+
 export default class ProductList {
     constructor(category, dataSource, listElement) {
         this.category = category;
@@ -21,7 +22,7 @@ export default class ProductList {
         const list = await this.dataSource.getData();
         this.renderList(list);
     }
-
+    
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list, 'afterbegin', true);
     }
