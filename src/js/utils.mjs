@@ -37,3 +37,11 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
         parentElement.insertAdjacentHTML(position, listElementArray.join(''));
     }
 }
+
+export function convertToJson(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error('Bad Response');
+  }
+}
