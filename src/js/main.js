@@ -7,5 +7,5 @@ const listElement = document.querySelector('.product-list');
 const alerts = new Alert();
 alerts.init();
 
-const myList = new ProductData('tents', dataSource, listElement);
+const myList = new ProductList('tents', dataSource, listElement);
 myList.init();

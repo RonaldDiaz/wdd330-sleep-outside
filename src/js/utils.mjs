@@ -29,7 +29,6 @@ export function getParam(key) {
 }
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false) {
-    const listElementArray = list.map(templateFn);
     if (clear) {
         parentElement.innerHTML = '';
     }
