@@ -24,7 +24,7 @@ export default class ProductDetails {
     renderProductDetails() {
         const template = document.getElementById('productTemplate');
         const clone = template.content.cloneNode(true);
-        const [brand, name, image, price, color, description] = clone.querySelectorAll("h3, h2, img, p, p, p");
+        const [brand, name, image, price, color, description] = clone.querySelectorAll('h3, h2, img, p, p, p');
 
         brand.textContent = this.product.Brand.Name;
         name.textContent = this.product.NameWithoutBrand;
