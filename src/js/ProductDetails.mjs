@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { setLocalStorage, getLocalStorage } from './utils.mjs';
-=======
 import { setLocalStorage, getLocalStorage, updateCartCount } from './utils.mjs';
->>>>>>> 2aea27815ab72ef2c3479c4fe6f4ebaff9c00a6b
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
