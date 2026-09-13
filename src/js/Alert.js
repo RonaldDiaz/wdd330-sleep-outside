@@ -4,11 +4,13 @@ export default class Alert {
   constructor() {
     this.alerts = [];
   }
+
   async init() {
     const data = await fetch('../json/alerts.json');
     this.alerts = await convertToJson(data);
     this.displayAlerts();
   }
+
   displayAlerts() {
     const alertsArray = this.alerts.mainAlerts;
     if (alertsArray.length !== 0) {
