@@ -1,4 +1,5 @@
 import ProductData from './ProductData.mjs';
+<<<<<<< HEAD
 
 const dataSource = new ProductData('tents');
 
@@ -40,3 +41,18 @@ async function init() {
 }
 
 init();
+=======
+import ProductList from './ProductList.mjs';
+import Alert from './Alert';
+import { updateCartCount } from './utils.mjs';
+
+const dataSource = new ProductData('tents');
+const listElement = document.querySelector('.product-list');
+const alerts = new Alert();
+alerts.init();
+
+const myList = new ProductList('tents', dataSource, listElement);
+myList.init();
+
+updateCartCount();
+>>>>>>> 2aea27815ab72ef2c3479c4fe6f4ebaff9c00a6b
