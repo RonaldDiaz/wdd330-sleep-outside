@@ -211,6 +211,26 @@ button {
   font-size: 1em;
 }
 
+.product-card__discount {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  background-color: var(--dark-grey);
+  color: white;
+  font-size: var(--small-font);
+  font-weight: bold;
+}
+
+.product-card__price {
+  color: var(--dark-grey);
+  font-weight: bold;
+}
+
+.product-card__retail-price {
+  color: var(--dark-grey);
+  font-size: var(--small-font);
+  text-decoration: line-through;
+}
+
 /* End product list card */
 
 .product-detail {
