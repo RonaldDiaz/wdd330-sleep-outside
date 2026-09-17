@@ -36,14 +36,6 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
-export function updateCartCount() {
-    const cartItems = getLocalStorage('so-cart') || [];
-    const countElement = document.getElementById('cart-count');
-    if (countElement) {
-        countElement.textContent = cartItems.length;
-    }
-}
-
 export function renderWithTemplate(template, parentElement, data, callback) {
     parentElement.innerHTML = template;
     if (callback) {
@@ -61,6 +53,14 @@ export async function loadHeaderFooter() {
     const footer = await loadTemplate('/partials/footer.html');
     renderWithTemplate(header, document.querySelector('#header'), null, updateCartCount);
     renderWithTemplate(footer, document.querySelector('#footer'));
+}
+
+export function updateCartCount() {
+    const cartItems = getLocalStorage('so-cart') || [];
+    const countElement = document.getElementById('cart-count');
+    if (countElement) {
+        countElement.textContent = cartItems.length;
+    }
 }
 
 export function convertToJson(res) {
