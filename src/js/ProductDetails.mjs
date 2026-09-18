@@ -22,13 +22,14 @@ export default class ProductDetails {
     }
 
     renderProductDetails() {
+        console.log(this.product);
         const template = document.getElementById('productTemplate');
         const clone = template.content.cloneNode(true);
         const [brand, name, image, price, color, description] = clone.querySelectorAll('h3, h2, img, p, p, p');
 
         brand.textContent = this.product.Brand.Name;
         name.textContent = this.product.NameWithoutBrand;
-        image.src = this.product.Image;
+        image.src = this.product.Images.PrimaryLarge;
         image.alt = this.product.NameWithoutBrand;
         price.textContent = this.product.FinalPrice;
         color.textContent = this.product.Colors[0].ColorName;

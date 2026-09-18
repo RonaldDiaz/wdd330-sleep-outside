@@ -301,3 +301,35 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.product-categories {
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-categories a {
+    margin-top: 25px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    padding: 5px;
+    border: 5px outset var(--primary-color);
+}
+
+.product-categories a:hover, .product-categories a:focus {
+    border-color: var(--tertiary-color);
+}
+
+.product-categories a:active {
+    border-style: inset;
+}
+
+.product-categories a img {
+    max-width: 100px;
+    max-height: 100px;
+}
