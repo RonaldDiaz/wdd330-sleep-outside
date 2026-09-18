@@ -176,6 +176,29 @@ button {
   padding: 1rem;
 }
 
+.categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.categories a {
+  color: var(--dark-grey);
+  text-align: center;
+  text-decoration: none;
+}
+
+.categories img {
+  height: 100px;
+  object-fit: contain;
+}
+
+.categories h2 {
+  font-size: 1em;
+  margin-top: 0.5rem;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -294,6 +317,12 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
