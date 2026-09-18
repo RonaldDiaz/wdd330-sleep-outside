@@ -218,17 +218,21 @@ button {
   color: white;
   font-size: var(--small-font);
   font-weight: bold;
+  border-radius: 0.25em;
 }
 
 .product-card__price {
   color: var(--dark-grey);
   font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
 }
 
 .product-card__retail-price {
   color: var(--dark-grey);
   font-size: var(--small-font);
   text-decoration: line-through;
+  margin-top: 0.25em;
 }
 
 /* End product list card */
@@ -237,6 +241,10 @@ button {
   padding: 1em;
   max-width: 500px;
   margin: auto;
+}
+
+.product-detail .product-card__discount {
+  margin: 0.25em 0 0.5em;
 }
 
 .product-detail img {
