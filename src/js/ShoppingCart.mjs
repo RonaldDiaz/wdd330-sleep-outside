@@ -1,27 +1,36 @@
 import { renderWithTemplate, renderListWithTemplate, getLocalStorage } from './utils.mjs';
 
 export default class ShoppingCart {
-  constructor(listElement) {
-    this.listElement = listElement;
-  }
-
-  init() {
-    const cartItems = getLocalStorage('so-cart') || [];
-    this.renderList(cartItems);
-  }
-    
-  renderList(list) {
-    if (list.length === 0) {
-      renderWithTemplate(emptyCartTemplate, this.listElement);
-    } else {
-      renderListWithTemplate(cartItemTemplate, this.listElement, list, 'afterbegin', true);
+    constructor(listElement) {
+        this.listElement = listElement;
+        this.cartItems = [];
     }
-  }
+
+    init() {
+        this.cartItems = getLocalStorage('so-cart') || [];
+        this.renderList(this.cartItems);
+    }
+
+    renderList(list) {
+        if (list.length === 0) {
+            renderWithTemplate(emptyCartTemplate, this.listElement);
+        } else {
+            renderListWithTemplate(cartItemTemplate, this.listElement, list, 'afterbegin', true);
+        }
+    }
+
+    calculateCartTotal() {
+        let total = 0;
+        this.cartItems.forEach(item => {
+            total += item.FinalPrice
+        });
+        return total;
+    }
 }
 
 function cartItemTemplate(item) {
-  const newItem =
-  `<li class='cart-card divider'>
+    const newItem =
+        `<li class='cart-card divider'>
     <a href='#' class='cart-card__image'>
       <img
         src='${item.Image}'
@@ -36,7 +45,7 @@ function cartItemTemplate(item) {
     <p class='cart-card__price'>$${item.FinalPrice}</p>
   </li>`;
 
-  return newItem;
+    return newItem;
 }
 
 const emptyCartTemplate = `
