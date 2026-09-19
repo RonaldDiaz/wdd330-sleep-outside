@@ -38,6 +38,7 @@ export default class ProductDetails {
     }
 
     renderProductDetails() {
+        console.log(this.product);
         const template = document.getElementById('productTemplate');
         const clone = template.content.cloneNode(true);
         const brand = clone.querySelector('h3');
@@ -52,7 +53,7 @@ export default class ProductDetails {
 
         brand.textContent = this.product.Brand.Name;
         name.textContent = this.product.NameWithoutBrand;
-        image.src = this.product.Image;
+        image.src = this.product.Images.PrimaryLarge;
         image.alt = this.product.NameWithoutBrand;
         price.textContent = `$${this.product.FinalPrice}`;
         color.textContent = this.product.Colors[0].ColorName;
