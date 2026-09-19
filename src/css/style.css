@@ -257,11 +257,39 @@ button {
 
 /* Start cart list card styles */
 .cart-card {
+  width: 100%;
+  padding: 12px 0;
   display: grid;
+  column-gap: 16px;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  position: relative;
+}
+
+.cart-card:first-child {
+  margin-top: 24px;
+  border-top: 2px solid var(--primary-color);
+}
+
+.cart-card__remove {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  background: transparent;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.cart-card__remove:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
 }
 
 .cart-card__image {
