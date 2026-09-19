@@ -171,6 +171,31 @@ button {
   text-align: center;
 }
 
+/* Categories */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.categories a {
+  text-decoration: none;
+  color: var(--dark-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categories img {
+  width: 60px;
+  height: 60px;
+}
+
+/* End of categories */
+
 .products {
   margin-top: 2rem;
   padding: 1rem;
