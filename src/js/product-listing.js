@@ -17,5 +17,4 @@ else if (category === 'sleeping-bags') productType = 'Sleeping Bags';
 else if (category === 'backpacks') productType = 'Backpacks';
 else if (category === 'hammocks') productType = 'Hammocks';
 
-
 topProductsElement.innerText = `Top Products: ${productType}`;
