@@ -303,7 +303,7 @@ footer {
 }
 
 .product-categories {
-    
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
