@@ -32,13 +32,18 @@ export default class ProductDetails {
 
     addProductToCart() {
         const existingCart = getLocalStorage('so-cart') || [];
-        existingCart.push(this.product);
+        const existingProduct = existingCart.find(item => item.Id === this.productId);
+        if (existingProduct) {
+            existingProduct.Quantity = (existingProduct.Quantity || 1) + 1;
+        } else {
+            this.product.Quantity = 1;
+            existingCart.push(this.product);
+        }
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
     }
 
     renderProductDetails() {
-        console.log(this.product);
         const template = document.getElementById('productTemplate');
         const clone = template.content.cloneNode(true);
         const brand = clone.querySelector('h3');

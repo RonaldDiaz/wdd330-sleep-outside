@@ -59,7 +59,8 @@ export function updateCartCount() {
     const cartItems = getLocalStorage('so-cart') || [];
     const countElement = document.getElementById('cart-count');
     if (countElement) {
-        countElement.textContent = cartItems.length;
+        const totalCount = cartItems.reduce((total, item) => total + (item.Quantity || 1), 0);
+        countElement.textContent = totalCount;
     }
 }
 
