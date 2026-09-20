@@ -1,4 +1,4 @@
-import { renderListWithTemplate } from './utils.mjs';
+import { renderListWithTemplate, getCategoryLabel } from './utils.mjs';
 
 function productCardTemplate(product) {
   const finalPrice = Number(product.FinalPrice);
@@ -31,9 +31,17 @@ export default class ProductList {
   async init() {
     const list = await this.dataSource.getData(this.category);
     this.renderList(list);
+    this.renderBreadcrumb(list.length);
   }
   
   renderList(list) {
     renderListWithTemplate(productCardTemplate, this.listElement, list, 'afterbegin', true);
+  }
+
+  renderBreadcrumb(count) {
+    const breadcrumbElement = document.getElementById('breadcrumb');
+    if (breadcrumbElement) {
+      breadcrumbElement.innerHTML = `<strong>${getCategoryLabel(this.category)}: ${count} items </strong>`;
+    }
   }
 }

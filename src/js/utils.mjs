@@ -70,3 +70,18 @@ export function convertToJson(res) {
         throw new Error('Bad Response');
     }
 }
+
+export function getCategoryLabel(category) {
+    switch (category) {
+        case 'tents':
+            return 'Tents';
+        case 'sleeping-bags':
+            return 'Sleeping Bags';
+        case 'backpacks':
+            return 'Backpacks';
+        case 'hammocks':
+            return 'Hammocks';
+        default:
+            return category;
+    }
+}
