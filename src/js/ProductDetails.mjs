@@ -17,10 +17,11 @@ export function getProductDiscount(product) {
 }
 
 export default class ProductDetails {
-    constructor(productId, dataSource) {
+    constructor(productId, dataSource, alertManager) {
         this.productId = productId;
         this.product = {};
         this.dataSource = dataSource;
+        this.alertManager = alertManager;
     }
     
     async init() {
@@ -41,6 +42,7 @@ export default class ProductDetails {
         }
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
+        this.alertManager.show('Product added to cart');
     }
 
     renderProductDetails() {
