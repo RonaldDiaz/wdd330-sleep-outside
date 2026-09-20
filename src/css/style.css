@@ -410,7 +410,7 @@ footer {
     max-height: 100px;
 }
 
-.alert-container {
+#alertContainer {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -444,7 +444,7 @@ footer {
   padding: 8px;
     background: none;
     border: none;
-    color: var(--dark-grey);
+    color: inherit;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;

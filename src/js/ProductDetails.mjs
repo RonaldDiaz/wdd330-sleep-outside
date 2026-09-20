@@ -1,4 +1,5 @@
 import { setLocalStorage, getLocalStorage, updateCartCount } from './utils.mjs';
+import { alertManager } from './AlertManager';
 
 export function getProductDiscount(product) {
   const finalPrice = Number(product.FinalPrice);
@@ -17,11 +18,10 @@ export function getProductDiscount(product) {
 }
 
 export default class ProductDetails {
-    constructor(productId, dataSource, alertManager) {
+    constructor(productId, dataSource) {
         this.productId = productId;
         this.product = {};
         this.dataSource = dataSource;
-        this.alertManager = alertManager;
     }
     
     async init() {
@@ -42,7 +42,7 @@ export default class ProductDetails {
         }
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
-        this.alertManager.show('Product added to cart');
+        alertManager.show('Product added to cart', 'success');
     }
 
     renderProductDetails() {

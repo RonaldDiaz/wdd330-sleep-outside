@@ -1,102 +1,63 @@
-import { renderListWithTemplate, renderWithTemplate } from './utils.mjs';
-
-export default class AlertManager {
+class AlertManager {
   constructor() {
-    this.container = document.querySelector('main');
+    this.container = this.createAlertContainer();
     this.template = document.createElement('template');
-    this.template.classList.add('alert-container');
     this.template.innerHTML = alertTemplate;
   }
+  
+  createAlertContainer() {
+    let container = document.createElement('div');
+    container.id = 'alertContainer';
+    document.body.appendChild(container);
+    return container;
+  }
 
-  show(message, type = 'success', duration = 5000) {
+  show(message, type = 'info', duration = 5000) {
     const clone = this.template.content.cloneNode(true);
-    const [toastItem, toastMessage, closeButton] = clone.querySelectorAll('div, p, button');
-    toastItem.style.backgroundColor = alertColor(type);
-    toastMessage.textContent = message;
-    
+    const [alertItem, alertMessage, closeButton] = clone.querySelectorAll('div, p, button');
+    const colors = alertColor(type);
+      
+    alertMessage.textContent = message;
+    alertItem.style.backgroundColor = colors[0];
+    alertItem.style.color = colors[1];
+      
     this.container.appendChild(clone);
     
     setTimeout(() => {
-        toastItem.classList.add('show');
+      alertItem.classList.add('show');
     }, 20);
     
     const autoCloseTimer = setTimeout(() => {
-        this.dismiss(toastItem);
+      this.dismiss(alertItem);
     }, duration);
 
     closeButton.addEventListener('click', () => {
-        clearTimeout(autoCloseTimer);
-        this.dismiss(toastItem);
+      clearTimeout(autoCloseTimer);
+      this.dismiss(alertItem);
     });
   }
 
-  displayAlerts() {
-    const alertsArray = this.alerts.mainAlerts;
-    if (alertsArray.length !== 0) {
-      const section = document.createElement('div');
-      section.classList.add('alert-container');
-      document.querySelector('main').insertAdjacentElement('afterbegin', section);
-      this.renderList(alertsArray, section);
-    }
-  }
-
-  renderList(list, container) {
-    renderListWithTemplate(alertTemplate, container, list, 'afterbegin', true);
+  dismiss(alertItem) {
+    alertItem.classList.remove('show');
+    setTimeout(() => {
+      alertItem.remove();
+    }, 400);
   }
 }
 
-const alertTemplate =
-    `<div class="alert-item">
-      <p class="alert-message"></p>
-      <button type="button">&times;</button>
-    </div>`
+const alertTemplate = 
+  `<div class="alert-item">
+    <p class="alert-message"></p>
+    <button type="button" class="close-alert">&times;</button>
+  </div>`;
 
 function alertColor(type) {
   switch (type) {
-    case 'success': return '#525b0f'
-    case 'failure': return '#8a470c'
-    case 'warning': return '#f0a868'
-    default: return '#303030'
+    case 'success': return ['#4ec956', '#232523'];
+    case 'error': return ['#d1452c', '#fff'];
+    case 'warning': return ['#f1c70a', '#000'];
+    default: return ['#303030', '#fff'];
   }
 }
 
-export class Toast {
-    constructor(container) {
-        this.container = container;
-        const template = document.createElement('template');
-        template.innerHTML = `
-            <div class="toast-item">
-                <p class="toast-message"></p>
-                <button type="button" class="close-toast">&times;</button>
-            </div>`;
-        this.template = template;
-    }
-
-    show(message, duration = 5000) {
-        const clone = this.template.content.cloneNode(true);
-        const [toastItem, toastMessage, closeButton] = clone.querySelectorAll('div, p, button');
-        toastMessage.textContent = message;
-        
-        this.container.appendChild(clone);
-        
-        setTimeout(() => {
-            toastItem.classList.add('show');
-        }, 20);
-        
-        const autoCloseTimer = setTimeout(() => {
-            this.dismiss(toastItem);
-        }, duration);
-
-        closeButton.addEventListener('click', () => {
-            clearTimeout(autoCloseTimer);
-            this.dismiss(toastItem);
-        });
-    }
-
-    dismiss(toastItem) {
-        toastItem.classList.remove('show');
-        setTimeout(() => {
-            toastItem.remove();
-        }, 400);
-    }
-}
+export const alertManager = new AlertManager();
