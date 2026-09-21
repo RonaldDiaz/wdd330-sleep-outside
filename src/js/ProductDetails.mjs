@@ -1,5 +1,5 @@
-import { setLocalStorage, getLocalStorage, updateCartCount } from './utils.mjs';
 import { notificationManager } from './NotificationManager';
+import { setLocalStorage, getLocalStorage, updateCartCount, getCategoryLabel } from './utils.mjs';
 
 export function getProductDiscount(product) {
   const finalPrice = Number(product.FinalPrice);
@@ -27,6 +27,7 @@ export default class ProductDetails {
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
+        this.renderBreadcrumb();
         document.getElementById('addToCart')
             .addEventListener('click', this.addProductToCart.bind(this));
     }
@@ -76,5 +77,12 @@ export default class ProductDetails {
 
         const container = document.querySelector('.product-detail');
         container.appendChild(clone);
+    }
+
+    renderBreadcrumb() {
+        const breadcrumbElement = document.getElementById('breadcrumb');
+        if (breadcrumbElement) {
+            breadcrumbElement.innerHTML = `<strong>${getCategoryLabel(this.product.Category)}</strong>`;
+        }
     }
 }
