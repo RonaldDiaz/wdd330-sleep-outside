@@ -115,7 +115,7 @@ button {
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 /* End utility classes */
@@ -308,7 +308,9 @@ button {
   color: var(--secondary-color);
   cursor: pointer;
   padding: 0 5px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
   z-index: 10;
 }
 
@@ -347,15 +349,14 @@ button {
 }
 
 .cart-footer {
-    text-align: center;
-    font-size: var(--large-font);
-    font-weight: bold;
-    width: 200px;
-    border: 2px solid var(--primary-color);
-    margin: 20px auto;
-    box-shadow: 3px 5px 5px var(--tertiary-color);
+  text-align: center;
+  font-size: var(--large-font);
+  font-weight: bold;
+  width: 200px;
+  border: 2px solid var(--primary-color);
+  margin: 20px auto;
+  box-shadow: 3px 5px 5px var(--tertiary-color);
 }
-
 
 @media screen and (min-width: 500px) {
   body {
@@ -379,38 +380,39 @@ footer {
 }
 
 .product-categories {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .product-categories a {
-    margin-top: 25px;
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    padding: 5px;
-    border: 5px outset var(--primary-color);
+  margin-top: 25px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 5px;
+  border: 5px outset var(--primary-color);
 }
 
-.product-categories a:hover, .product-categories a:focus {
-    border-color: var(--tertiary-color);
+.product-categories a:hover,
+.product-categories a:focus {
+  border-color: var(--tertiary-color);
 }
 
 .product-categories a:active {
-    border-style: inset;
+  border-style: inset;
 }
 
 .product-categories a img {
-    max-width: 100px;
-    max-height: 100px;
+  max-width: 100px;
+  max-height: 100px;
 }
 
-#alertContainer {
+#notificationContainer {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -420,7 +422,7 @@ footer {
   gap: 10px;
 }
 
-.alert-item {
+.notification-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -432,27 +434,31 @@ footer {
   border-left: 5px solid var(--secondary-color);
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
-.alert-item.show {
-    opacity: 1;
-    transform: translateY(0);
+.notification-item.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.alert-item button {
+.notification-item button {
   padding: 8px;
-    background: none;
-    border: none;
-    color: inherit;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.8;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.alert-item button:hover {
-    opacity: 1;
-    transform: scale(1.15);
+.notification-item button:hover {
+  opacity: 1;
+  transform: scale(1.15);
 }

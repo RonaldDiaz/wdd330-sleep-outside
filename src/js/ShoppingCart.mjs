@@ -1,5 +1,5 @@
 import { renderWithTemplate, renderListWithTemplate, getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
-import { alertManager } from './AlertManager';
+import { notificationManager } from './NotificationManager';
 
 export default class ShoppingCart {
   constructor(listElement, totalElement) {
@@ -52,7 +52,7 @@ export default class ShoppingCart {
     setLocalStorage('so-cart', cartItems);
     this.renderContent();
     updateCartCount();
-    alertManager.show('Product removed from cart', 'warning');
+    notificationManager.show('Product removed from cart', 'warning');
   }
 }
 

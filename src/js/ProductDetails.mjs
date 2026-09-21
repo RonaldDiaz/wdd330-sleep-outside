@@ -1,5 +1,5 @@
 import { setLocalStorage, getLocalStorage, updateCartCount } from './utils.mjs';
-import { alertManager } from './AlertManager';
+import { notificationManager } from './NotificationManager';
 
 export function getProductDiscount(product) {
   const finalPrice = Number(product.FinalPrice);
@@ -42,7 +42,7 @@ export default class ProductDetails {
         }
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
-        alertManager.show('Product added to cart', 'success');
+        notificationManager.show('Product added to cart', 'success');
     }
 
     renderProductDetails() {
