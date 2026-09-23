@@ -1,4 +1,5 @@
 import { renderWithTemplate, renderListWithTemplate, getLocalStorage, setLocalStorage, updateCartCount } from './utils.mjs';
+import { notificationManager } from './NotificationManager';
 
 export default class ShoppingCart {
   constructor(listElement, totalElement) {
@@ -8,17 +9,17 @@ export default class ShoppingCart {
   }
 
   init() {
+    this.listElement.addEventListener('click', (event) => {
+      if (event.target.classList.contains('cart-card__remove')) {
+        this.removeItemFromCart(event.target.dataset.id);
+      }
+    });
     this.renderContent();      
   }
   
   renderContent() {
     this.cartItems = getLocalStorage('so-cart') || [];
     this.renderList(this.cartItems);
-    this.listElement.addEventListener('click', (event) => {
-      if (event.target.classList.contains('cart-card__remove')) {
-        this.removeItemFromCart(event.target.dataset.id);
-      }
-    });
     this.renderCarTotal();
   }
 
@@ -51,6 +52,7 @@ export default class ShoppingCart {
     setLocalStorage('so-cart', cartItems);
     this.renderContent();
     updateCartCount();
+    notificationManager.show('Product removed from cart', 'warning');
   }
 }
 

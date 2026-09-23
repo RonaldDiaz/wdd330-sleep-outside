@@ -1,3 +1,4 @@
+import { notificationManager } from './NotificationManager';
 import { setLocalStorage, getLocalStorage, updateCartCount, getCategoryLabel } from './utils.mjs';
 
 export function getProductDiscount(product) {
@@ -42,6 +43,7 @@ export default class ProductDetails {
         }
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
+        notificationManager.show('Product added to cart', 'success');
     }
 
     renderProductDetails() {
