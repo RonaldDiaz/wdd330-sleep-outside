@@ -1,3 +1,4 @@
+import Alert from './Alert.js';
 import { setLocalStorage, getLocalStorage, updateCartCount, getCategoryLabel } from './utils.mjs';
 
 export function getProductDiscount(product) {
@@ -32,16 +33,42 @@ export default class ProductDetails {
     }
 
     addProductToCart() {
-        const existingCart = getLocalStorage('so-cart') || [];
+        if (!this.product || !this.product.Id) {
+            const alert = new Alert();
+            alert.showMessage('Unable to add this item to the cart right now.', {
+                background: '#b42318',
+                color: '#ffffff',
+                duration: 3000,
+            });
+            return;
+        }
+
+        const existingCart = Array.isArray(getLocalStorage('so-cart')) ? getLocalStorage('so-cart') : [];
         const existingProduct = existingCart.find(item => item.Id === this.productId);
+
         if (existingProduct) {
             existingProduct.Quantity = (existingProduct.Quantity || 1) + 1;
         } else {
-            this.product.Quantity = 1;
-            existingCart.push(this.product);
+            const itemToAdd = {
+                ...this.product,
+                Quantity: 1,
+                Name: this.product.NameWithoutBrand || this.product.Name || 'Product',
+                Images: this.product.Images || { PrimarySmall: '/images/tent.svg' },
+                Colors: this.product.Colors?.length ? this.product.Colors : [{ ColorName: 'Default' }],
+            };
+            existingCart.push(itemToAdd);
         }
+
         setLocalStorage('so-cart', existingCart);
         updateCartCount();
+
+        const alert = new Alert();
+        const productName = this.product.NameWithoutBrand || 'This item';
+        alert.showMessage(`Added ${productName} to cart.`, {
+            background: '#2d6a4f',
+            color: '#ffffff',
+            duration: 3000,
+        });
     }
 
     renderProductDetails() {

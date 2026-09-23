@@ -8,21 +8,29 @@ export default class ShoppingCart {
   }
 
   init() {
-    this.renderContent();      
+    if (!this.listElement) return;
+
+    this.listElement.addEventListener('click', (event) => {
+      const removeButton = event.target.closest('.cart-card__remove');
+      if (removeButton) {
+        this.removeItemFromCart(removeButton.dataset.id);
+      }
+    });
+
+    this.renderContent();
   }
   
   renderContent() {
-    this.cartItems = getLocalStorage('so-cart') || [];
+    if (!this.listElement) return;
+    const cartRaw = getLocalStorage('so-cart');
+    this.cartItems = Array.isArray(cartRaw) ? cartRaw : [];
     this.renderList(this.cartItems);
-    this.listElement.addEventListener('click', (event) => {
-      if (event.target.classList.contains('cart-card__remove')) {
-        this.removeItemFromCart(event.target.dataset.id);
-      }
-    });
     this.renderCarTotal();
   }
 
   renderList(list) {
+    if (!this.listElement) return;
+
     if (list.length === 0) {
       renderWithTemplate(emptyCartTemplate, this.listElement);
     } else {
@@ -31,22 +39,24 @@ export default class ShoppingCart {
   }
 
   calculateCartTotal() {
-    return this.cartItems.reduce((total, item) => total + item.FinalPrice * (item.Quantity || 1), 0);
+    return this.cartItems.reduce((total, item) => total + (Number(item.FinalPrice) || 0) * (item.Quantity || 1), 0);
   }
     
   renderCarTotal() {
+    if (!this.totalElement) return;
+
     const cartTotal = this.calculateCartTotal();
     if (cartTotal === 0) {
       this.totalElement.innerHTML = '';
     } else {
       this.totalElement.innerHTML = `
-        <p class="cart-footer">Total: $${cartTotal.toFixed(2)}</p>      
-      `
+        <p class="cart-footer">Total: $${cartTotal.toFixed(2)}</p>
+      `;
     }
   }
   
   removeItemFromCart(id) {
-    let cartItems = getLocalStorage('so-cart') || [];
+    let cartItems = Array.isArray(getLocalStorage('so-cart')) ? getLocalStorage('so-cart') : [];
     cartItems = cartItems.filter(item => item.Id !== id);
     setLocalStorage('so-cart', cartItems);
     this.renderContent();
@@ -55,21 +65,27 @@ export default class ShoppingCart {
 }
 
 function cartItemTemplate(item) {
+    const image = item.Images?.PrimarySmall || '/images/tent.svg';
+    const name = item.NameWithoutBrand || item.Name || 'Product';
+    const colorName = item.Colors?.[0]?.ColorName || 'Default';
+    const quantity = item.Quantity || 1;
+    const price = Number(item.FinalPrice) || 0;
+
     const newItem =
         `<li class='cart-card divider'>
         <button class='cart-card__remove' data-id='${item.Id}'>&times;</button>
     <a href='#' class='cart-card__image'>
       <img
-        src='${item.Images.PrimarySmall}'
-        alt='${item.Name}'
+        src='${image}'
+        alt='${name}'
       />
     </a>
     <a href='#'>
-      <h2 class='card__name'>${item.Name}</h2>
+      <h2 class='card__name'>${name}</h2>
     </a>
-    <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-    <p class='cart-card__quantity'>Qty: ${item.Quantity || 1}</p>
-    <p class='cart-card__price'>$${item.FinalPrice}</p>
+    <p class='cart-card__color'>${colorName}</p>
+    <p class='cart-card__quantity'>Qty: ${quantity}</p>
+    <p class='cart-card__price'>$${price.toFixed(2)}</p>
   </li>`;
 
     return newItem;

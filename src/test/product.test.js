@@ -25,6 +25,23 @@ describe('getProductDiscount', () => {
   });
 });
 
+describe('Alert', () => {
+  test('shows a compact cart confirmation message', () => {
+    document.body.innerHTML = '<main></main>';
+
+    const alert = new (require('../js/Alert').default)();
+    alert.showMessage('Added to cart.', {
+      background: '#2e7d32',
+      color: '#fff',
+    });
+
+    const message = document.querySelector('.alert-item');
+    expect(message).not.toBeNull();
+    expect(message.textContent).toContain('Added to cart.');
+    expect(document.querySelector('.alert-list')).not.toBeNull();
+  });
+});
+
 describe('ProductData', () => {
   test('uses the backend base URL when the environment variable is missing', async () => {
     const originalFetch = global.fetch;
