@@ -1,4 +1,5 @@
 import { getProductDiscount } from '../js/ProductDetails.mjs';
+import ProductData from '../js/ProductData.mjs';
 
 describe('getProductDiscount', () => {
   test('returns discount details when a product is discounted', () => {
@@ -21,5 +22,29 @@ describe('getProductDiscount', () => {
     expect(result.isDiscounted).toBe(false);
     expect(result.discountAmount).toBe(0);
     expect(result.discountPercentage).toBe(0);
+  });
+});
+
+describe('ProductData', () => {
+  test('uses the backend base URL when the environment variable is missing', async () => {
+    const originalFetch = global.fetch;
+    const mockFetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ Result: [{ Id: '123' }] }),
+    });
+
+    global.fetch = mockFetch;
+
+    try {
+      const dataSource = new ProductData();
+      const result = await dataSource.getData('tents');
+
+      expect(result).toEqual([{ Id: '123' }]);
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://wdd330-backend-osp8.onrender.com/products/search/tents'
+      );
+    } finally {
+      global.fetch = originalFetch;
+    }
   });
 });
