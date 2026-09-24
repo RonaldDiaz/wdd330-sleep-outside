@@ -19,3 +19,9 @@ zipElement.addEventListener('input', () => {
         checkoutProcess.clearTheRest();
     }
 });
+
+const submitButton = document.getElementById('submit');
+submitButton.addEventListener('click', () => {
+    event.preventDefault;
+    checkoutProcess.checkout(document.forms['checkout-form']);
+});
