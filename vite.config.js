@@ -2,25 +2,25 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    root: 'src/',
+  root: 'src/',
 
-    server: {
-        host: '0.0.0.0',
-        port: Number(process.env.PORT) || 5173,
-        strictPort: true,
-        allowedHosts: ['wdd330-sleep-outside-cxfa.onrender.com'],
-    },
+  server: {
+    host: '0.0.0.0',
+    port: Number(process.env.PORT) || 5173,
+    strictPort: true,
+    allowedHosts: ['wdd330-sleep-outside-cxfa.onrender.com'],
+  },
 
-    build: {
-        outDir: '../dist',
-        rollupOptions: {
-            input: {
-                main: resolve(__dirname, 'src/index.html'),
-                cart: resolve(__dirname, 'src/cart/index.html'),
-                checkout: resolve(__dirname, 'src/checkout/index.html'),
-                product: resolve(__dirname, 'src/product_pages/index.html'),
-                listing: resolve(__dirname, 'src/product_listing/index.html'),
-            },
-        },
+  build: {
+    outDir: '../dist',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'src/index.html'),
+        cart: resolve(__dirname, 'src/cart/index.html'),
+        checkout: resolve(__dirname, 'src/checkout/index.html'),
+        product: resolve(__dirname, 'src/product_pages/index.html'),
+        listing: resolve(__dirname, 'src/product_listing/index.html'),
+      },
     },
+  },
 });
