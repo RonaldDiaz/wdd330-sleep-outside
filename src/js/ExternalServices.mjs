@@ -8,9 +8,7 @@ export default class ExternalServices {
 
     async getData(category) {
         const response = await fetch(`${baseURL}products/search/${category} `);
-        console.log(response);
         const data = await convertToJson(response);
-        console.log(data);
         return data.Result;
     }
 
@@ -22,13 +20,14 @@ export default class ExternalServices {
 
     async checkout(payload) {
         const options = {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         };
-        return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
+        const response = await fetch(`${baseURL}checkout/`, options);
+        return await convertToJson(response);
     }
 }
 

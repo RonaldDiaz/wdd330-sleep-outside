@@ -3,25 +3,24 @@ import { loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
 const checkoutProcess = new CheckoutProcess(
-    document.getElementById('subtotal'),
-    document.getElementById('tax'),
-    document.getElementById('shipping'),
-    document.getElementById('total')
+  document.getElementById('subtotal'),
+  document.getElementById('tax'),
+  document.getElementById('shipping'),
+  document.getElementById('total'),
 );
 checkoutProcess.init();
 
 const zipElement = document.getElementById('zip');
 zipElement.addEventListener('input', () => {
-    if (zipElement.value.length === 5) {
-        checkoutProcess.calculateAndDisplayTheRest();
-    }
-    else {
-        checkoutProcess.clearTheRest();
-    }
+  if (zipElement.value.length === 5) {
+    checkoutProcess.calculateAndDisplayTheRest();
+  } else {
+    checkoutProcess.clearTheRest();
+  }
 });
 
-const submitButton = document.getElementById('submit');
-submitButton.addEventListener('click', () => {
-    event.preventDefault;
-    checkoutProcess.checkout(document.forms['checkout-form']);
+const checkoutForm = document.forms['checkout-form'];
+checkoutForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  checkoutProcess.checkout(checkoutForm);
 });

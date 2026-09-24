@@ -1,8 +1,7 @@
 <!doctype html>
 
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,86 +11,90 @@
     <link rel="stylesheet" href="/css/style.css" />
 
     <script type="module" src="../js/checkout.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <header class="divider" id="header"></header>
 
-    <main class="divider" id="checkout-container">
-        <section class="products">
+    <main class="divider">
+      <form name="checkout-form" id="checkout-form">
+        <div class="checkout-container">
+          <section class="billing-section">
             <h2>Review & Place your Order</h2>
-            <form id="checkout-form">
-                <fieldset>
-                    <legend>Customer Name</legend>
-                    <label for="fname">First Name</label>
-                    <input id="fname" type="text" required />
+            <fieldset>
+              <legend>Customer Name</legend>
+              <label for="fname">First Name</label>
+              <input id="fname" name="fname" type="text" required />
+              <label for="lname">Last Name</label>
+              <input id="lname" name="lname" type="text" required />
+            </fieldset>
+            <fieldset>
+              <legend>Address</legend>
+              <label for="street">Street Address</label>
+              <input id="street" name="street" type="text" required />
 
-                    <label for="lname">Last Name</label>
-                    <input id="lname" type="text" required />
-                </fieldset>
-                <fieldset>
-                    <legend>Address</legend>
-                    <label for="street">Street Address</label>
-                    <input id="street" type="text" required />
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" required />
 
-                    <label for="city">City</label>
-                    <input id="city" type="text" required />
+              <label for="state">State</label>
+              <input id="state" name="state" type="text" required />
 
-                    <label for="state">State</label>
-                    <input id="state" type="text" required />
+              <label for="zip">Zip Code</label>
+              <input id="zip" name="zip" type="number" required />
+            </fieldset>
+            <fieldset>
+              <legend>Payment</legend>
+              <label for="cardNumber">Credit Card Number</label>
+              <input id="cardNumber" name="cardNumber" type="text" required />
 
-                    <label for="zip">Zip Code</label>
-                    <input id="zip" type="number" required />
-                </fieldset>
-                <fieldset>
-                    <legend>Payment</legend>
-                    <label for="cardNumber">Credit Card Number</label>
-                    <input id="cardNumber" type="text" required />
-
-                    <label for="expiration">Expiration Date</label>
-                    <input id="expiration" type="date" required />
-
-                    <label for="code">Security Code</label>
-                    <input id="code" type="text" required />
-                </fieldset>
-                <button type="submit" id="submit">Checkout</button>
-            </form>
-        </section>
-        <section id="order-summary">
+              <label for="expiration">Expiration Date</label>
+              <input
+                id="expiration"
+                name="expiration"
+                type="text"
+                placeholder="MM/YY"
+                required
+              />
+              <label for="code">Security Code</label>
+              <input id="code" name="code" type="text" required />
+            </fieldset>
+          </section>
+          <section id="order-summary" class="summary-section">
             <h2>Order Summary</h2>
             <table>
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td id="subtotal"></td>
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <td id="tax"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping Estimate</td>
-                        <td id="shipping"></td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Order Total</td>
-                        <td id="total"></td>
-                    </tr>
-                </tfoot>
-
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Subtotal</td>
+                  <td id="subtotal"></td>
+                </tr>
+                <tr>
+                  <td>Tax</td>
+                  <td id="tax"></td>
+                </tr>
+                <tr>
+                  <td>Shipping Estimate</td>
+                  <td id="shipping"></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Order Total</td>
+                  <td id="total"></td>
+                </tr>
+              </tfoot>
             </table>
-        </section>
+            <button type="submit" id="submit">Checkout</button>
+          </section>
+        </div>
+      </form>
     </main>
 
     <footer id="footer"></footer>
-</body>
-
+  </body>
 </html>
