@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 import { notificationManager } from './NotificationManager';
 
@@ -55,10 +55,17 @@ export default class CheckoutProcess {
         order.shipping = this.shipping;
         order.items = packageItems(this.list);
 
+        if (order.zip.length !== 5) {
+            notificationManager.show(`Please enter a valid zip code`, 'error');
+            return;
+        }
         try {
             const response = await services.checkout(order);
-            notificationManager.show(response.message, 'success');
+            // notificationManager.show(response.message, 'success');
             form.reset();
+            window.location.replace(`./success.html?message=${response.message}`);
+            setLocalStorage('so-cart', null);
+
         } catch (err) {
             notificationManager.show(`There was a problem with your order: ${Object.values(err.message)}`, 'error');
         }
