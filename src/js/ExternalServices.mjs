@@ -12,12 +12,8 @@ export default class ExternalServices {
     }
 
     async getData(category) {
-<<<<<<< HEAD:src/js/ProductData.mjs
         const normalizedBaseUrl = normalizeBaseUrl(baseURL);
         const response = await fetch(`${normalizedBaseUrl}products/search/${category}`);
-=======
-        const response = await fetch(`${baseURL}products/search/${category} `);
->>>>>>> 1b21f49feec4cffd66f1e11d916e9920796ceafd:src/js/ExternalServices.mjs
         const data = await convertToJson(response);
         return data.Result;
     }
@@ -37,7 +33,8 @@ export default class ExternalServices {
             },
             body: JSON.stringify(payload),
         };
-        const response = await fetch(`${baseURL}checkout/`, options);
+        const normalizedBaseUrl = normalizeBaseUrl(baseURL);
+        const response = await fetch(`${normalizedBaseUrl}checkout`, options);
         return await convertToJson(response);
     }
 }
