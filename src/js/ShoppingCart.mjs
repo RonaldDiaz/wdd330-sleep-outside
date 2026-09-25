@@ -20,7 +20,7 @@ export default class ShoppingCart {
   renderContent() {
     this.cartItems = getLocalStorage('so-cart') || [];
     this.renderList(this.cartItems);
-    this.renderCarTotal();
+    this.renderCartTotal();
   }
 
   renderList(list) {
@@ -35,13 +35,14 @@ export default class ShoppingCart {
     return this.cartItems.reduce((total, item) => total + item.FinalPrice * (item.Quantity || 1), 0);
   }
     
-  renderCarTotal() {
+  renderCartTotal() {
     const cartTotal = this.calculateCartTotal();
     if (cartTotal === 0) {
       this.totalElement.innerHTML = '';
     } else {
       this.totalElement.innerHTML = `
-        <p class="cart-footer">Total: $${cartTotal.toFixed(2)}</p>      
+        <p class="cart-footer">Total: $${cartTotal.toFixed(2)}</p>
+        <a href="/checkout/index.html"><button type="button">Checkout</button></a>      
       `
     }
   }

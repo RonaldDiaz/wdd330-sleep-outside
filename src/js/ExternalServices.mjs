@@ -2,16 +2,14 @@ import { convertToJson } from './utils.mjs';
 
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export default class ProductData {
+export default class ExternalServices {
     constructor() {
     }
 
     async getData(category) {
         const response = await fetch(`${baseURL}products/search/${category} `);
-        console.log(response);
         const data = await convertToJson(response);
-        console.log(data);
-        return data.Result; 
+        return data.Result;
     }
 
     async findProductById(id) {
@@ -19,4 +17,18 @@ export default class ProductData {
         const data = await convertToJson(response);
         return data.Result;
     }
+
+    async checkout(payload) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        };
+        const response = await fetch(`${baseURL}checkout/`, options);
+        return await convertToJson(response);
+    }
 }
+
+

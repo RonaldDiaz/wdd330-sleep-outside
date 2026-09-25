@@ -64,12 +64,12 @@ export function updateCartCount() {
     }
 }
 
-export function convertToJson(res) {
+export async function convertToJson(res) {
     if (res.ok) {
         return res.json();
-    } else {
-        throw new Error('Bad Response');
     }
+    const errorResponse = await res.json().catch(() => ({ error: 'Bad Response' }));
+    throw { message: errorResponse };
 }
 
 export function getCategoryLabel(category) {
