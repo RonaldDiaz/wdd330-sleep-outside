@@ -7,4 +7,3 @@ const container = document.querySelector('.product-list');
 const cartFooterElement = document.querySelector('#cart-footer');
 const shoppingCart = new ShoppingCart(container, cartFooterElement);
 shoppingCart.init();
-
