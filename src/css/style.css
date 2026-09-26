@@ -309,7 +309,7 @@ button {
   padding: 12px 0;
   display: grid;
   column-gap: 16px;
-  grid-template-columns: 25% auto 20%;
+  grid-template-columns: 25% auto 25%;
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
@@ -323,7 +323,7 @@ button {
 
 .cart-card__remove {
   position: absolute;
-  top: 10px;
+  top: 0px;
   right: 0px;
   background: transparent;
   font-size: 1.5rem;
@@ -361,16 +361,16 @@ button {
   grid-column: 2;
 }
 
-.cart-card__quantity {
-  grid-row: 1;
-  grid-column: 3;
-}
-
 .cart-card__quantity-controls {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-right: 26px;
+  grid-row: 2;
+  grid-column: 3;
+}
+
+.cart-card__quantity {
+  text-align: center;
 }
 
 .cart-card__qty-btn {
@@ -392,7 +392,7 @@ button {
 }
 
 .cart-card__price {
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 3;
   text-align: center;
   margin-right: 26px;
@@ -432,7 +432,7 @@ button {
 
   .cart-card {
     font-size: inherit;
-    grid-template-columns: 150px auto 20%;
+    grid-template-columns: 150px auto 15%;
   }
 }
 
