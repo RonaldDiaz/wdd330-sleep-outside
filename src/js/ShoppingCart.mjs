@@ -12,7 +12,11 @@ export default class ShoppingCart {
     this.listElement.addEventListener('click', (event) => {
       if (event.target.classList.contains('cart-card__remove')) {
         this.removeItemFromCart(event.target.dataset.id);
-      }
+      } else if (event.target.classList.contains('increase')) {
+        this.changeQuantity(event.target.dataset.id, 1);
+      } else if (event.target.classList.contains('decrease')) {
+        this.changeQuantity(event.target.dataset.id, -1);
+      } 
     });
     this.renderContent();      
   }
@@ -48,19 +52,27 @@ export default class ShoppingCart {
   }
   
   removeItemFromCart(id) {
-    let cartItems = getLocalStorage('so-cart') || [];
-    cartItems = cartItems.filter(item => item.Id !== id);
-    setLocalStorage('so-cart', cartItems);
+    this.cartItems = this.cartItems.filter(item => item.Id !== id);
+    setLocalStorage('so-cart', this.cartItems);
     this.renderContent();
     updateCartCount();
     notificationManager.show('Product removed from cart', 'warning');
   }
+
+  changeQuantity(id, amount) {
+    const product = this.cartItems.find(item => item.Id === id);
+    product.Quantity = (product.Quantity || 1) + amount;
+    if (product.Quantity < 1) product.Quantity = 1;
+    setLocalStorage('so-cart', this.cartItems);
+    this.renderContent();
+    updateCartCount(); 
+  }
 }
 
 function cartItemTemplate(item) {
-    const newItem =
-        `<li class='cart-card divider'>
-        <button class='cart-card__remove' data-id='${item.Id}'>&times;</button>
+  const newItem =
+  `<li class='cart-card divider'>
+    <button class='cart-card__remove' data-id='${item.Id}'>&times;</button>
     <a href='#' class='cart-card__image'>
       <img
         src='${item.Images.PrimarySmall}'
@@ -71,11 +83,15 @@ function cartItemTemplate(item) {
       <h2 class='card__name'>${item.Name}</h2>
     </a>
     <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-    <p class='cart-card__quantity'>Qty: ${item.Quantity || 1}</p>
+    <div class='cart-card__quantity-controls'>
+      <button class='cart-card__qty-btn decrease' data-id='${item.Id}'>-</button>
+      <span class='cart-card__quantity'>Qty: ${item.Quantity || 1}</span>
+      <button class='cart-card__qty-btn increase' data-id='${item.Id}'>+</button>
+    </div>
     <p class='cart-card__price'>$${item.FinalPrice}</p>
   </li>`;
 
-    return newItem;
+  return newItem;
 }
 
 const emptyCartTemplate = `
