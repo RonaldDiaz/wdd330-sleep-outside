@@ -69,7 +69,7 @@ export async function convertToJson(res) {
         return res.json();
     }
     const errorResponse = await res.json().catch(() => ({ error: 'Bad Response' }));
-    throw { message: errorResponse };
+    throw { name: 'servicesError', message: errorResponse };
 }
 
 export function getCategoryLabel(category) {
