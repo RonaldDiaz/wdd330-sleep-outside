@@ -63,8 +63,8 @@ export default class CheckoutProcess {
             const response = await services.checkout(order);
             // notificationManager.show(response.message, 'success');
             form.reset();
-            window.location.replace(`./success.html?message=${response.message}`);
             setLocalStorage('so-cart', null);
+            window.location.replace(`./success.html?message=${response.message}`);
 
         } catch (err) {
             notificationManager.show(`There was a problem with your order: ${Object.values(err.message)}`, 'error');
@@ -77,7 +77,7 @@ function packageItems(items) {
             id: item.Id,
             price: item.FinalPrice,
             name: item.Name,
-            quantity: 1,
+            quantity: item.Quantity || 1,
         }));
     return simplifiedItems;
 }
