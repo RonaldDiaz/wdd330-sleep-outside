@@ -1,5 +1,6 @@
 {
   "name": "outside",
+  "type": "module",
   "version": "2.0.0",
   "description": "Boilerplate for WDD 330 SleepOutside project",
   "main": "main.js",
@@ -7,7 +8,7 @@
     "build": "vite build --emptyOutDir",
     "lint": "eslint *.js src/**/*.js",
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
-    "test": "jest",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --watchAll=false",
     "start": "vite",
     "preview": "vite preview"
   },
@@ -25,6 +26,9 @@
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "browserslist": [
     "last 3 and_chr versions",

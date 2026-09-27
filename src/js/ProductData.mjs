@@ -2,6 +2,7 @@ import { convertToJson } from './utils.mjs';
 
 const DEFAULT_BASE_URL = 'https://wdd330-backend-osp8.onrender.com/';
 const baseURL = (import.meta.env && import.meta.env.VITE_SERVER_URL) || DEFAULT_BASE_URL;
+const SEARCH_CATEGORIES = ['tents', 'sleeping-bags', 'backpacks', 'hammocks'];
 
 function normalizeBaseUrl(url) {
     return url.endsWith('/') ? url : `${url}/`;
@@ -16,6 +17,49 @@ export default class ProductData {
         const response = await fetch(`${normalizedBaseUrl}products/search/${category}`);
         const data = await convertToJson(response);
         return data.Result;
+    }
+
+    async searchProducts(query) {
+        const trimmedQuery = (query || '').trim();
+        if (!trimmedQuery) {
+            return [];
+        }
+
+        const normalizedBaseUrl = normalizeBaseUrl(baseURL);
+        const encodedQuery = encodeURIComponent(trimmedQuery);
+
+        try {
+            const response = await fetch(`${normalizedBaseUrl}products/search/${encodedQuery}`);
+            const data = await convertToJson(response);
+            const directResults = Array.isArray(data.Result) ? data.Result : [];
+            if (directResults.length) {
+                return directResults;
+            }
+        } catch (error) {
+            // Some API instances do not support arbitrary text searches.
+            // Fall back to category-based product search and local filtering.
+        }
+
+        const categoryResults = await Promise.all(
+            SEARCH_CATEGORIES.map(async (category) => {
+                try {
+                    const response = await fetch(`${normalizedBaseUrl}products/search/${category}`);
+                    const data = await convertToJson(response);
+                    return Array.isArray(data.Result) ? data.Result : [];
+                } catch (error) {
+                    return [];
+                }
+            })
+        );
+
+        const normalizedSearch = trimmedQuery.toLowerCase();
+        return categoryResults
+            .flat()
+            .filter((product) => {
+                const productName = (product.NameWithoutBrand || product.Name || '').toLowerCase();
+                const brandName = (product.Brand && product.Brand.Name ? product.Brand.Name : '').toLowerCase();
+                return productName.includes(normalizedSearch) || brandName.includes(normalizedSearch);
+            });
     }
 
     async findProductById(id) {
