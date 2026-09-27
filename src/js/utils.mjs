@@ -52,6 +52,7 @@ export async function loadHeaderFooter() {
     const header = await loadTemplate('/partials/header.html');
     const footer = await loadTemplate('/partials/footer.html');
     renderWithTemplate(header, document.querySelector('#header'), null, updateCartCount);
+    showRegisterModal();
     renderWithTemplate(footer, document.querySelector('#footer'));
 }
 
@@ -85,4 +86,22 @@ export function getCategoryLabel(category) {
         default:
             return category;
     }
+}
+
+export function showRegisterModal() {
+    const hasSeenModal = localStorage.getItem('hasSeenRegisterModal');
+    if (hasSeenModal) return;
+
+    const modal = document.getElementById('register-modal');
+    if (!modal) return;
+
+    modal.classList.remove('hidden');
+
+    const closeIt = () => {
+        modal.classList.add('hidden');
+        localStorage.setItem('hasSeenRegisterModal', 'true');
+    };
+
+    modal.querySelector('.register-modal__close').addEventListener('click', closeIt);
+    modal.querySelector('#register-cta-btn').addEventListener('click', closeIt);
 }
