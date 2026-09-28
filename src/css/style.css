@@ -510,6 +510,49 @@ button {
   }
 }
 
+@media screen and (max-width: 640px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logo {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    font-size: 1.5rem;
+  }
+
+  .logo img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .search-form {
+    order: 3;
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .search-form__input {
+    min-width: 0;
+  }
+
+  .search-form__button {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .cart {
+    margin-left: auto;
+    padding-top: 0;
+  }
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
