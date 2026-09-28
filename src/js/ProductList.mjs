@@ -22,26 +22,63 @@ function productCardTemplate(product) {
 }
 
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
+  constructor(category, dataSource, listElement, searchTerm = null) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.searchTerm = searchTerm;
+    this.products = [];
+    this.currentSort = 'name';
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
-    this.renderBreadcrumb(list.length);
+    const list = this.searchTerm
+      ? await this.dataSource.searchProducts(this.searchTerm)
+      : await this.dataSource.getData(this.category);
+
+    this.products = Array.isArray(list) ? list : [];
+    this.renderList();
+    this.renderBreadcrumb(this.products.length);
   }
-  
-  renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list, 'afterbegin', true);
+
+  sortProducts(list, sortBy = this.currentSort) {
+    const sortedProducts = [...list];
+
+    switch (sortBy) {
+      case 'price':
+        return sortedProducts.sort((a, b) => Number(a.FinalPrice) - Number(b.FinalPrice));
+      case 'name':
+      default:
+        return sortedProducts.sort((a, b) =>
+          (a.NameWithoutBrand || '').localeCompare(b.NameWithoutBrand || '')
+        );
+    }
+  }
+
+  renderList() {
+    const sortedProducts = this.sortProducts(this.products);
+    renderListWithTemplate(productCardTemplate, this.listElement, sortedProducts, 'afterbegin', true);
+
+    if (!sortedProducts.length) {
+      this.listElement.innerHTML = '<li class="empty-results">No products found.</li>';
+    }
+  }
+
+  setSort(sortBy) {
+    this.currentSort = sortBy;
+    if (this.products.length) {
+      this.renderList();
+    }
   }
 
   renderBreadcrumb(count) {
     const breadcrumbElement = document.getElementById('breadcrumb');
     if (breadcrumbElement) {
-      breadcrumbElement.innerHTML = `<strong>${getCategoryLabel(this.category)}: ${count} items </strong>`;
+      if (this.searchTerm) {
+        breadcrumbElement.innerHTML = `<strong>Search Results for "${this.searchTerm}": ${count} items </strong>`;
+      } else {
+        breadcrumbElement.innerHTML = `<strong>${getCategoryLabel(this.category)}: ${count} items </strong>`;
+      }
     }
   }
 }
